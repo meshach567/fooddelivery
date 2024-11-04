@@ -14,7 +14,17 @@ export class ErrorType {
 @ObjectType() 
 export class RegisterRepose {
     @Field(() => User, { nullable: true})
-    user?: User | any;
+    activation_token: string;
+    // user?: User | any;
+
+    @Field(() => ErrorType, { nullable: true})
+    error?: ErrorType
+}
+
+@ObjectType() 
+export class ActivationResponse {
+    @Field(() => User)
+    user: User | any;
 
     @Field(() => ErrorType, { nullable: true})
     error?: ErrorType

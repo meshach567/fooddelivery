@@ -1,34 +1,36 @@
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
 enum Role {
-  Admin
-  User
+    Admin
+    User
 }
 
 model Avatars {
-  id       Int      @id @default(autoincrement())
-  public_id String
-  url      String  
-  user     User?    @relation(fields: [userId], references: [id])
-  userId   Int?     @unique  // Changed from String to Int to match User.id
+    id        Int    @id @default(autoincrement())
+    public_id String
+    url       String
+    user      User   @relation(fields: [userId], references: [id])
+    userId    Int    @unique
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  name      String?
-  email     String   @unique(map: "email_unique")
-  phonenum  Float?    @unique(map: "phonenum_unique")
-  address   String?
-  password  String
-  avatar    Avatars?
-  role      Role     @default(User)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+    id           Int       @id @default(autoincrement())
+    name         String
+    email        String    @unique
+    phone_number String?   @unique
+    address      String?
+    password     String
+    avatar       Avatars?
+    role         Role      @default(User)
+    createdAt    DateTime  @default(now())
+    updatedAt    DateTime  @updatedAt
+
+    @@unique([email, phone_number], name: "unique_email_phone_number")
 }
