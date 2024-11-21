@@ -3,7 +3,7 @@ import { EmailService } from './email.service';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { ConfigService } from '@nestjs/config';
 import { join } from 'path';
-import { EjsAdapter} from "@nestjs-modules/mailer/dist/adapters/ejs.adapter"
+import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
 
 @Global()
 @Module({
@@ -18,22 +18,21 @@ import { EjsAdapter} from "@nestjs-modules/mailer/dist/adapters/ejs.adapter"
             pass: config.get('SMTP_PASSWORD'),
           },
         },
-
-        default: {
-          from: 'Meshach'
+        defaults: {
+          from: 'Becodemy',
         },
-
         template: {
-          dir: join(__dirname, "../../../../server/email-template"),
+          dir: join(__dirname, '../../../apps/users/email-templates'),
           adapter: new EjsAdapter(),
           options: {
-            strict: false
-          }
-        }
+            strict: false,
+          },
+        },
       }),
-      inject: [ConfigService]
+      inject: [ConfigService],
     }),
   ],
-  providers: [EmailService]
+  providers: [EmailService],
+  exports: [EmailService],
 })
-export class EmailModule { }
+export class EmailModule {}
