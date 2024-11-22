@@ -1,23 +1,19 @@
-"use client"
+// app/providers.tsx
+"use client";
 
-import React from 'react'
-import { NextUiProvider } from "@nextui-org/react"
-import { ThemeProvider as NextThemesProvider } from "next-themes";
-import { ApolloProvider } from '@apollo/client';
-import { graphqlClient } from '@/graphql/gql.setup';
+import { graphqlClient } from "../../graphql/gql.setup";
+import { ApolloProvider } from "@apollo/client";
+import { NextUIProvider } from "@nextui-org/react";
+import { SessionProvider } from "next-auth/react";
 
-const Provider = ({ children }: { children: React.ReactNode }) => {
-    return (
-        <ApolloProvider client={graphqlClient}>
-
-        <NextUiProvider>
-            <NextThemesProvider attribute="class" defaultTheme='dark'>
-
-                {children}
-            </NextThemesProvider>
-        </NextUiProvider>
-        </ApolloProvider>
-    )
+export function Providers({ children }: { children: React.ReactNode }) {
+  return (
+    <ApolloProvider client={graphqlClient}>
+      <SessionProvider>
+        <NextUIProvider>
+            {children}
+        </NextUIProvider>
+      </SessionProvider>
+    </ApolloProvider>
+  );
 }
-
-export default Provider
