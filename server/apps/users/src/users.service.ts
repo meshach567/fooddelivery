@@ -13,8 +13,7 @@ import * as bcrypt from 'bcrypt';
 import { EmailService } from './email/email.service';
 import { TokenSender } from './utils/sendToken';
 import { User } from '@prisma/client';
-import { PrismaService } from "../prisma/Prisma.service";
-
+import {PrismaService} from "../prisma/Prisma.service";
 interface UserData {
   name: string;
   email: string;
@@ -29,7 +28,7 @@ export class UsersService {
     private readonly prisma: PrismaService,
     private readonly configService: ConfigService,
     private readonly emailService: EmailService,
-  ) { }
+  ) {}
 
   // register user service
   async register(registerDto: RegisterDto, response: Response) {
@@ -44,15 +43,15 @@ export class UsersService {
       throw new BadRequestException('User already exist with this email!');
     }
 
+    const phoneNumbersToCheck = [phone_number];
 
-    const phoneNumbersToCheck = [phone_number.toString()];
     const usersWithPhoneNumber = await this.prisma.user.findMany({
       where: {
         phone_number: {
           not: null,
-          in: phoneNumbersToCheck
-        }
-      }
+          in: phoneNumbersToCheck,
+        },
+      },
     });
 
     if (usersWithPhoneNumber.length > 0) {
@@ -134,7 +133,7 @@ export class UsersService {
         name,
         email,
         password,
-        phone_number ,
+        phone_number,
       },
     });
 

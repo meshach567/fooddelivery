@@ -40,7 +40,7 @@ export class User {
   address: string;
 
   @Field({ nullable: true })
-  phone_number: string;
+  phone_number: number;
 
   @Field()
   createdAt: Date;
