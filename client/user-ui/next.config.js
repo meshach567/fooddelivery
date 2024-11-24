@@ -1,16 +1,28 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
-  // Add other configuration options here
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: '/api/proxy',
-      },
-    ];
-  },
-}
+//@ts-check
 
-module.exports = nextConfig
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { composePlugins, withNx } = require('@nx/next');
+
+/**
+ * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
+ **/
+const nextConfig = {
+  experimental:{
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+
+    // @ts-ignore
+    serverActions: true,
+  },
+  nx: {
+    // Set this to true if you would like to to use SVGR
+    // See: https://github.com/gregberge/svgr
+    svgr: false,
+  },
+};
+
+const plugins = [
+  // Add more Next.js plugins to this list if needed.
+  withNx,
+];
+
+module.exports = composePlugins(...plugins)(nextConfig);

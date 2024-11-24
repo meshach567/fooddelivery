@@ -1,28 +1,24 @@
+const { createGlobPatternsForDependencies } = require("@nx/react/tailwind");
+const { join } = require("path");
+const { nextui } = require("@nextui-org/react");
+
 /** @type {import('tailwindcss').Config} */
-import { nextui} from "@nextui-org/react"
 module.exports = {
-    darkMode: ['class'],
-    content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-    './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}'
+  content: [
+    join(
+      __dirname,
+      "{src,pages,components,app}/**/*!(*.stories|*.spec).{ts,tsx,html}",
+    ),
+    "../../node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
+    ...createGlobPatternsForDependencies(__dirname),
   ],
   theme: {
-  	extend: {
-  		zIndex: {
-  			'30': '30',
-  			'40': '40',
-  			'50': '50'
-  		},
-  		borderRadius: {
-  			lg: 'var(--radius)',
-  			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
-  		},
-  		colors: {}
-  	}
+    extend: {
+      fontFamily: {
+        Poppins: ["var(--font-Poppins)"],
+        Inter: ["var(--font-inter)"],
+      },
+    },
   },
-  darkMode: "class",
   plugins: [nextui()],
 };

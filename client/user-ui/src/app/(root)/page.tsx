@@ -1,5 +1,5 @@
 import React from 'react'
-import HomeScreen from '@/screens/HomeScreen'
+import HomeScreen from '@/shared/screens/HomeScreen'
 
 const page = () => {
   return (
