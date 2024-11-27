@@ -6,5 +6,5 @@ const styles = {
     button:"flex flex-row justify-center items-center py-3 px-6 rounded-full cursor-pointer bg-[#2190ff] min-h-[45px] w-full text-[16px] font-Poppins font-semibold"
    };
    
-   export default styles;
+export default styles;
    
